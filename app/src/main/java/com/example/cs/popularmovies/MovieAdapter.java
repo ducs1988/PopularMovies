@@ -61,7 +61,7 @@ public class MovieAdapter extends BaseAdapter{
             // set movie image into imageview
             ImageView imageView = (ImageView) gridView
                     .findViewById(R.id.grid_imageview);
-            // picasso  test
+            // picasso
             Picasso.with(context).load("http://i.imgur.com/DvpvklR.png").into(imageView);
 
         } else {
