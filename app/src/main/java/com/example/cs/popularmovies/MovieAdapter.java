@@ -25,12 +25,12 @@ public class MovieAdapter extends BaseAdapter{
 
     @Override
     public int getCount() {
-        return 2;
+        return 10;
     }
 
     @Override
-    public Object getItem(int position) {
-        return null;
+    public String getItem(int position) {
+        return movieName;
     }
 
     @Override
@@ -62,7 +62,9 @@ public class MovieAdapter extends BaseAdapter{
             ImageView imageView = (ImageView) gridView
                     .findViewById(R.id.grid_imageview);
             // picasso
-            Picasso.with(context).load("http://i.imgur.com/DvpvklR.png").into(imageView);
+            Picasso.with(context)
+                    .load("http://i.imgur.com/DvpvklR.png")
+                    .into(imageView);
 
         } else {
             gridView = (View) convertView;
