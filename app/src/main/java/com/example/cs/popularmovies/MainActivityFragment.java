@@ -14,6 +14,10 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -57,7 +61,12 @@ public class MainActivityFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        movieAdapter = new MovieAdapter(getActivity(), "Picasso");
+        MovieInfo[] mi = new MovieInfo[1];
+        mi[0] = new MovieInfo();
+        mi[0].setOriginal_title("Deadpool");
+        mi[0].setPoster_path("/inVq3FRqcYIRl2la8iZikYYxFNR.jpg");
+
+        movieAdapter = new MovieAdapter(getActivity(), mi);
 
         View rootView =  inflater.inflate(R.layout.fragment_main, container, false);
 
@@ -67,7 +76,7 @@ public class MainActivityFragment extends Fragment {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String movie = movieAdapter.getItem(position);
+                String movie = movieAdapter.getItem(position).getOriginal_title();
                 Toast.makeText(getActivity(), movie, Toast.LENGTH_SHORT).show();
             }
         });
@@ -75,12 +84,53 @@ public class MainActivityFragment extends Fragment {
         return rootView;
     }
 
-    public class FetchMovieInfoTask extends AsyncTask<Void, Void, Void> {
+    public class FetchMovieInfoTask extends AsyncTask<MovieInfo, Void, MovieInfo[]> {
 
         private final String LOG_TAG = FetchMovieInfoTask.class.getSimpleName();
 
+        /*
+        * JSON parser
+        * */
+        private MovieInfo[] getPopularMovieInfoFromJson(String movieInfoJsonStr) throws JSONException {
+
+            // Set names of the JSON objects that need to be extracted
+            final String OWM_RESULTS = "results";
+            final String OWM_POSTERPATH = "poster_path";
+            final String OWM_ORGTITLE = "original_title";
+
+            JSONObject moviesJson = new JSONObject(movieInfoJsonStr);
+            JSONArray moviesArray = moviesJson.getJSONArray(OWM_RESULTS);
+
+            MovieInfo[] resultsInfo = new MovieInfo[moviesArray.length()];
+
+            // Go through the JSON object array
+            for (int i = 0; i < moviesArray.length(); i++) {
+                // get poster path, original title,
+                String posterPath;
+                String orgTitle;
+
+                JSONObject movieObj = moviesArray.getJSONObject(i);
+
+                posterPath = movieObj.getString(OWM_POSTERPATH);
+                orgTitle = movieObj.getString(OWM_ORGTITLE);
+
+                resultsInfo[i] = new MovieInfo();
+                resultsInfo[i].setOriginal_title(orgTitle);
+                resultsInfo[i].setPoster_path(posterPath);
+            }
+
+            for (MovieInfo mi : resultsInfo) {
+                Log.v(LOG_TAG, "Movie info: "
+                        + mi.getOriginal_title() + " - "
+                        + mi.getPoster_path());
+            }
+
+            return resultsInfo;
+        }
+
+
         @Override
-        protected Void doInBackground(Void... params) {
+        protected MovieInfo[] doInBackground(MovieInfo... params) {
 
             HttpURLConnection urlConnection = null;
             BufferedReader reader = null;
@@ -89,7 +139,7 @@ public class MainActivityFragment extends Fragment {
 
             try {
 
-                String baseUrl = "https://api.themoviedb.org/3/movie/550?";
+                String baseUrl = "http://api.themoviedb.org/3/movie/popular?";
                 String apiKey = "api_key=" + BuildConfig.THE_MOVIE_DB_API_KEY;
 
                 URL url = new URL(baseUrl.concat(apiKey));
@@ -131,6 +181,13 @@ public class MainActivityFragment extends Fragment {
                         Log.e(LOG_TAG, "Error closing stream", e);
                     }
                 }
+            }
+
+            try {
+                return getPopularMovieInfoFromJson(moviesJsonStr);
+            } catch (JSONException e) {
+                Log.e(LOG_TAG, e.getMessage(), e);
+                e.printStackTrace();
             }
 
             return null;

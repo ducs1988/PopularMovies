@@ -16,26 +16,26 @@ import com.squareup.picasso.Picasso;
 public class MovieAdapter extends BaseAdapter{
 
     private Context context;
-    private String movieName;
+    private final MovieInfo[] movieInfos;
 
-    public MovieAdapter(Context context, String movieName) {
+    public MovieAdapter(Context context, MovieInfo[] movieInfos) {
         this.context = context;
-        this.movieName = movieName;
+        this.movieInfos = movieInfos;
     }
 
     @Override
     public int getCount() {
-        return 10;
+        return movieInfos.length;
     }
 
     @Override
-    public String getItem(int position) {
-        return movieName;
+    public MovieInfo getItem(int position) {
+        return movieInfos[position];
     }
 
     @Override
     public long getItemId(int position) {
-        return 0;
+        return position;
     }
 
     @Override
@@ -56,14 +56,17 @@ public class MovieAdapter extends BaseAdapter{
             // set movie name into textview
             TextView textView = (TextView) gridView
                     .findViewById(R.id.grid_textview);
-            textView.setText(movieName);
+            String org_title = movieInfos[position].getOriginal_title();
+            textView.setText(org_title);
 
             // set movie image into imageview
             ImageView imageView = (ImageView) gridView
                     .findViewById(R.id.grid_imageview);
+            String url = "http://image.tmdb.org/t/p/w185/" +
+                    movieInfos[position].getPoster_path();
             // picasso
             Picasso.with(context)
-                    .load("http://i.imgur.com/DvpvklR.png")
+                    .load(url)
                     .into(imageView);
 
         } else {
