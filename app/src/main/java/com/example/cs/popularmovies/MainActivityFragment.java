@@ -24,6 +24,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -61,12 +62,12 @@ public class MainActivityFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        MovieInfo[] mi = new MovieInfo[1];
+        /*MovieInfo[] mi = new MovieInfo[1];
         mi[0] = new MovieInfo();
         mi[0].setOriginal_title("Deadpool");
-        mi[0].setPoster_path("/inVq3FRqcYIRl2la8iZikYYxFNR.jpg");
+        mi[0].setPoster_path("/inVq3FRqcYIRl2la8iZikYYxFNR.jpg");*/
 
-        movieAdapter = new MovieAdapter(getActivity(), mi);
+        movieAdapter = new MovieAdapter(getActivity(), new ArrayList<MovieInfo>());
 
         View rootView =  inflater.inflate(R.layout.fragment_main, container, false);
 
@@ -84,14 +85,14 @@ public class MainActivityFragment extends Fragment {
         return rootView;
     }
 
-    public class FetchMovieInfoTask extends AsyncTask<MovieInfo, Void, MovieInfo[]> {
+    public class FetchMovieInfoTask extends AsyncTask<MovieInfo, Void, ArrayList<MovieInfo>> {
 
         private final String LOG_TAG = FetchMovieInfoTask.class.getSimpleName();
 
         /*
         * JSON parser
         * */
-        private MovieInfo[] getPopularMovieInfoFromJson(String movieInfoJsonStr) throws JSONException {
+        private ArrayList<MovieInfo> getPopularMovieInfoFromJson(String movieInfoJsonStr) throws JSONException {
 
             // Set names of the JSON objects that need to be extracted
             final String OWM_RESULTS = "results";
@@ -101,7 +102,8 @@ public class MainActivityFragment extends Fragment {
             JSONObject moviesJson = new JSONObject(movieInfoJsonStr);
             JSONArray moviesArray = moviesJson.getJSONArray(OWM_RESULTS);
 
-            MovieInfo[] resultsInfo = new MovieInfo[moviesArray.length()];
+            ArrayList<MovieInfo> resultsInfo = new ArrayList<MovieInfo>();
+            //MovieInfo[] resultsInfo = new MovieInfo[moviesArray.length()];
 
             // Go through the JSON object array
             for (int i = 0; i < moviesArray.length(); i++) {
@@ -114,9 +116,10 @@ public class MainActivityFragment extends Fragment {
                 posterPath = movieObj.getString(OWM_POSTERPATH);
                 orgTitle = movieObj.getString(OWM_ORGTITLE);
 
-                resultsInfo[i] = new MovieInfo();
-                resultsInfo[i].setOriginal_title(orgTitle);
-                resultsInfo[i].setPoster_path(posterPath);
+                MovieInfo mi = new MovieInfo();
+                mi.setOriginal_title(orgTitle);
+                mi.setPoster_path(posterPath);
+                resultsInfo.add(mi);
             }
 
             for (MovieInfo mi : resultsInfo) {
@@ -130,7 +133,7 @@ public class MainActivityFragment extends Fragment {
 
 
         @Override
-        protected MovieInfo[] doInBackground(MovieInfo... params) {
+        protected ArrayList<MovieInfo> doInBackground(MovieInfo... params) {
 
             HttpURLConnection urlConnection = null;
             BufferedReader reader = null;
@@ -191,6 +194,16 @@ public class MainActivityFragment extends Fragment {
             }
 
             return null;
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<MovieInfo> movieInfos) {
+            if (movieInfos != null) {
+                movieAdapter.clear();
+                for (MovieInfo mi : movieInfos) {
+                    movieAdapter.add(mi);
+                }
+            }
         }
     }
 

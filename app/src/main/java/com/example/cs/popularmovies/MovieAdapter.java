@@ -4,33 +4,36 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+
 /**
  * Created by cs on 3/1/16.
  */
-public class MovieAdapter extends BaseAdapter{
+public class MovieAdapter extends ArrayAdapter{
 
     private Context context;
-    private final MovieInfo[] movieInfos;
+    private ArrayList<MovieInfo> movieInfos;
 
-    public MovieAdapter(Context context, MovieInfo[] movieInfos) {
+    public MovieAdapter(Context context, ArrayList<MovieInfo> movieInfos) {
+        super(context, R.layout.grid_item_movie, movieInfos);
         this.context = context;
         this.movieInfos = movieInfos;
     }
 
     @Override
     public int getCount() {
-        return movieInfos.length;
+        return movieInfos.size();
     }
 
     @Override
     public MovieInfo getItem(int position) {
-        return movieInfos[position];
+        return movieInfos.get(position);
     }
 
     @Override
@@ -56,14 +59,14 @@ public class MovieAdapter extends BaseAdapter{
             // set movie name into textview
             TextView textView = (TextView) gridView
                     .findViewById(R.id.grid_textview);
-            String org_title = movieInfos[position].getOriginal_title();
+            String org_title = movieInfos.get(position).getOriginal_title();
             textView.setText(org_title);
 
             // set movie image into imageview
             ImageView imageView = (ImageView) gridView
                     .findViewById(R.id.grid_imageview);
-            String url = "http://image.tmdb.org/t/p/w185/" +
-                    movieInfos[position].getPoster_path();
+            String url = "http://image.tmdb.org/t/p/w342/" +
+                    movieInfos.get(position).getPoster_path();
             // picasso
             Picasso.with(context)
                     .load(url)
