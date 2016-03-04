@@ -51,21 +51,27 @@ public class MainActivityFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_refresh) {
-            FetchMovieInfoTask movieTask = new FetchMovieInfoTask();
-            movieTask.execute();
+            updateMovieInfo();
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        updateMovieInfo();
+    }
+
+    private void updateMovieInfo() {
+        FetchMovieInfoTask movieInfoTask = new FetchMovieInfoTask();
+        // later to add pic option on pix
+        movieInfoTask.execute();
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        /*MovieInfo[] mi = new MovieInfo[1];
-        mi[0] = new MovieInfo();
-        mi[0].setOriginal_title("Deadpool");
-        mi[0].setPoster_path("/inVq3FRqcYIRl2la8iZikYYxFNR.jpg");*/
 
         movieAdapter = new MovieAdapter(getActivity(), new ArrayList<MovieInfo>());
 
