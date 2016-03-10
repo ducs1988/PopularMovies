@@ -132,11 +132,11 @@ public class MainActivityFragment extends Fragment {
                 resultsInfo.add(mi);
             }
 
-            for (MovieInfo mi : resultsInfo) {
+            /*for (MovieInfo mi : resultsInfo) {
                 Log.v(LOG_TAG, "Movie info: "
                         + mi.getOriginal_title() + " - "
                         + mi.getPoster_path());
-            }
+            }*/
 
             return resultsInfo;
         }
@@ -158,11 +158,8 @@ public class MainActivityFragment extends Fragment {
                         getString(R.string.pref_sort_key),
                         getString(R.string.pref_most_pop));
 
-                Log.v(LOG_TAG, sortBy);
-
                 String baseUrl =
                         "http://api.themoviedb.org/3/discover/movie?sort_by=" + sortBy;
-
 
                 String apiKey = "&api_key=" + BuildConfig.THE_MOVIE_DB_API_KEY;
 
@@ -189,7 +186,6 @@ public class MainActivityFragment extends Fragment {
                 }
                 moviesJsonStr = buffer.toString();
 
-                Log.v(LOG_TAG, "Movies String: " + moviesJsonStr);
             } catch (IOException e) {
                 Log.e(LOG_TAG, "Error ", e);
                 return null;
