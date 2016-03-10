@@ -3,4 +3,13 @@
     <string name="action_settings">Settings</string>
     <string name="MoviePic">MoviePic</string>
     <string name="action_refresh" translatable="false">Refresh</string>
+
+    <string name="pref_sort_by">Sort</string>
+    <string name="pref_sort_key" translatable="false">sort_by</string>
+    <string name="pref_most_pop" translatable="false">popularity.desc</string>
+    <string name="pref_highest_rating" translatable="false">vote_average.desc</string>
+    <string name="pref_most_pop_label">Most Popular</string>
+    <string name="pref_highest_rating_label">Highest Rated</string>
+    <string name="title_activity_settings">Settings</string>
+
 </resources>

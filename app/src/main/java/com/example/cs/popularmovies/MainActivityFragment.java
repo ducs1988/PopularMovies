@@ -1,7 +1,9 @@
 package com.example.cs.popularmovies;
 
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -40,6 +42,8 @@ public class MainActivityFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+
+
     }
 
     @Override
@@ -148,8 +152,19 @@ public class MainActivityFragment extends Fragment {
 
             try {
 
-                String baseUrl = "http://api.themoviedb.org/3/movie/popular?";
-                String apiKey = "api_key=" + BuildConfig.THE_MOVIE_DB_API_KEY;
+                SharedPreferences sharedPrefs =
+                        PreferenceManager.getDefaultSharedPreferences(getActivity());
+                String sortBy = sharedPrefs.getString(
+                        getString(R.string.pref_sort_key),
+                        getString(R.string.pref_most_pop));
+
+                Log.v(LOG_TAG, sortBy);
+
+                String baseUrl =
+                        "http://api.themoviedb.org/3/discover/movie?sort_by=" + sortBy;
+
+
+                String apiKey = "&api_key=" + BuildConfig.THE_MOVIE_DB_API_KEY;
 
                 URL url = new URL(baseUrl.concat(apiKey));
 

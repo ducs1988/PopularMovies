@@ -49,32 +49,32 @@ public class MovieAdapter extends ArrayAdapter{
 
         View gridView;
 
-        if (convertView == null) {
+        //if (convertView == null) {
 
-            gridView = new View(context);
+        gridView = new View(context);
 
-            // get layout from grid_item_movie.xml
-            gridView = inflater.inflate(R.layout.grid_item_movie, null);
+        // get layout from grid_item_movie.xml
+        gridView = inflater.inflate(R.layout.grid_item_movie, null);
 
-            // set movie name into textview
-            TextView textView = (TextView) gridView
-                    .findViewById(R.id.grid_textview);
-            String org_title = movieInfos.get(position).getOriginal_title();
-            textView.setText(org_title);
+        // set movie name into textview
+        TextView textView = (TextView) gridView
+                .findViewById(R.id.grid_textview);
+        String org_title = movieInfos.get(position).getOriginal_title();
+        textView.setText(org_title);
 
-            // set movie image into imageview
-            ImageView imageView = (ImageView) gridView
-                    .findViewById(R.id.grid_imageview);
-            String url = "http://image.tmdb.org/t/p/w342/" +
-                    movieInfos.get(position).getPoster_path();
-            // picasso
-            Picasso.with(context)
-                    .load(url)
-                    .into(imageView);
+        // set movie image into imageview
+        ImageView imageView = (ImageView) gridView
+                .findViewById(R.id.grid_imageview);
+        String url = "http://image.tmdb.org/t/p/w342/" +
+                movieInfos.get(position).getPoster_path();
+        // picasso
+        Picasso.with(context)
+                .load(url)
+                .into(imageView);
 
-        } else {
-            gridView = (View) convertView;
-        }
+        //} else {
+        //    gridView = (View) convertView;
+        //}
 
         return gridView;
     }
