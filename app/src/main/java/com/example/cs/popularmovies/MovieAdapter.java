@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
@@ -57,20 +56,21 @@ public class MovieAdapter extends ArrayAdapter{
         gridView = inflater.inflate(R.layout.grid_item_movie, null);
 
         // set movie name into textview
-        TextView textView = (TextView) gridView
+        /*TextView textView = (TextView) gridView
                 .findViewById(R.id.grid_textview);
         String org_title = movieInfos.get(position).getOriginal_title();
-        textView.setText(org_title);
+        textView.setText(org_title);*/
 
         // set movie image into imageview
         ImageView imageView = (ImageView) gridView
                 .findViewById(R.id.grid_imageview);
-        String url = "http://image.tmdb.org/t/p/w342/" +
+        String url = "http://image.tmdb.org/t/p/w500/" +
                 movieInfos.get(position).getPoster_path();
         // picasso
         Picasso.with(context)
                 .load(url)
                 .into(imageView);
+        imageView.setScaleType(ImageView.ScaleType.FIT_XY);
 
         //} else {
         //    gridView = (View) convertView;
