@@ -1,5 +1,6 @@
 package com.example.cs.popularmovies;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -14,7 +15,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -87,8 +87,15 @@ public class MainActivityFragment extends Fragment {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String movie = movieAdapter.getItem(position).getOriginal_title();
-                Toast.makeText(getActivity(), movie, Toast.LENGTH_SHORT).show();
+//                String movie = movieAdapter.getItem(position).getOriginal_title();
+//                Toast.makeText(getActivity(), movie, Toast.LENGTH_SHORT).show();
+                //String movie_id = movieAdapter.getItem(position).getId();
+                // Get clicked movie pass into detail activity
+                MovieInfo movieDetail = movieAdapter.getItem(position);
+
+                Intent intent = new Intent(getActivity(), DetailActivity.class);
+                intent.putExtra("MovieDetail", movieDetail);
+                startActivity(intent);
             }
         });
 
@@ -102,12 +109,17 @@ public class MainActivityFragment extends Fragment {
         /*
         * JSON parser
         * */
-        private ArrayList<MovieInfo> getPopularMovieInfoFromJson(String movieInfoJsonStr) throws JSONException {
+        private ArrayList<MovieInfo> getPopularMovieInfoFromJson(String movieInfoJsonStr)
+                throws JSONException {
 
             // Set names of the JSON objects that need to be extracted
             final String OWM_RESULTS = "results";
             final String OWM_POSTERPATH = "poster_path";
             final String OWM_ORGTITLE = "original_title";
+            final String OWM_ID = "id";
+            final String OWM_OVERVIEW = "overview";
+            final String OWM_VOTE_AVERAGE = "vote_average";
+            final String OWM_RELEASE_DATE = "release_date";
 
             JSONObject moviesJson = new JSONObject(movieInfoJsonStr);
             JSONArray moviesArray = moviesJson.getJSONArray(OWM_RESULTS);
@@ -118,17 +130,18 @@ public class MainActivityFragment extends Fragment {
             // Go through the JSON object array
             for (int i = 0; i < moviesArray.length(); i++) {
                 // get poster path, original title,
-                String posterPath;
-                String orgTitle;
 
                 JSONObject movieObj = moviesArray.getJSONObject(i);
 
-                posterPath = movieObj.getString(OWM_POSTERPATH);
-                orgTitle = movieObj.getString(OWM_ORGTITLE);
-
                 MovieInfo mi = new MovieInfo();
-                mi.setOriginal_title(orgTitle);
-                mi.setPoster_path(posterPath);
+
+                mi.setId(movieObj.getString(OWM_ID));
+                mi.setOriginal_title(movieObj.getString(OWM_ORGTITLE));
+                mi.setPoster_path(movieObj.getString(OWM_POSTERPATH));
+                mi.setOverview(movieObj.getString(OWM_OVERVIEW));
+                mi.setVote_average(movieObj.getString(OWM_VOTE_AVERAGE));
+                mi.setRelease_date(movieObj.getString(OWM_RELEASE_DATE));
+
                 resultsInfo.add(mi);
             }
 
@@ -159,9 +172,9 @@ public class MainActivityFragment extends Fragment {
                         getString(R.string.pref_most_pop));
 
                 String baseUrl =
-                        "http://api.themoviedb.org/3/discover/movie?sort_by=" + sortBy;
+                        "http://api.themoviedb.org/3/movie/" + sortBy;
 
-                String apiKey = "&api_key=" + BuildConfig.THE_MOVIE_DB_API_KEY;
+                String apiKey = "?api_key=" + BuildConfig.THE_MOVIE_DB_API_KEY;
 
                 URL url = new URL(baseUrl.concat(apiKey));
 
