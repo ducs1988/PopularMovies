@@ -48,12 +48,14 @@ public class MovieAdapter extends ArrayAdapter{
 
         View gridView;
 
-        //if (convertView == null) {
+        if (convertView == null) {
 
-        gridView = new View(context);
+            convertView = inflater.inflate(R.layout.grid_item_movie, null);
+        }
+        //gridView = new View(context);
 
         // get layout from grid_item_movie.xml
-        gridView = inflater.inflate(R.layout.grid_item_movie, null);
+        //gridView = inflater.inflate(R.layout.grid_item_movie, null);
 
         // set movie name into textview
         /*TextView textView = (TextView) gridView
@@ -62,7 +64,7 @@ public class MovieAdapter extends ArrayAdapter{
         textView.setText(org_title);*/
 
         // set movie image into imageview
-        ImageView imageView = (ImageView) gridView
+        ImageView imageView = (ImageView) convertView
                 .findViewById(R.id.grid_imageview);
         String url = "http://image.tmdb.org/t/p/w500/" +
                 movieInfos.get(position).getPoster_path();
@@ -72,10 +74,10 @@ public class MovieAdapter extends ArrayAdapter{
                 .into(imageView);
         imageView.setScaleType(ImageView.ScaleType.FIT_XY);
 
-        //} else {
-        //    gridView = (View) convertView;
-        //}
+         /*else {
+            gridView = (View) convertView;
+        }*/
 
-        return gridView;
+        return convertView;
     }
 }
