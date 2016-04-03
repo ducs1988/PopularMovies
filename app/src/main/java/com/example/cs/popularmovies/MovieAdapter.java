@@ -71,6 +71,8 @@ public class MovieAdapter extends ArrayAdapter{
         // picasso
         Picasso.with(context)
                 .load(url)
+                .placeholder(R.drawable.poster_placeholder)
+                .error(R.drawable.poster_placeholder)
                 .into(imageView);
         imageView.setScaleType(ImageView.ScaleType.FIT_XY);
 
