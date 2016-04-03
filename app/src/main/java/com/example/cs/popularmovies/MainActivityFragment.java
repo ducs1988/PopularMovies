@@ -34,6 +34,7 @@ import java.util.ArrayList;
 public class MainActivityFragment extends Fragment {
 
     protected MovieAdapter movieAdapter;
+    private ArrayList<MovieInfo> movies;
 
     public MainActivityFragment() {
     }
@@ -42,8 +43,6 @@ public class MainActivityFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-
-
     }
 
     @Override
@@ -64,7 +63,6 @@ public class MainActivityFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        updateMovieInfo();
     }
 
     private void updateMovieInfo() {
@@ -77,7 +75,14 @@ public class MainActivityFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        movieAdapter = new MovieAdapter(getActivity(), new ArrayList<MovieInfo>());
+        if (savedInstanceState == null) {
+            updateMovieInfo();
+            movies = new ArrayList<MovieInfo>();
+        } else {
+            movies = savedInstanceState.getParcelableArrayList("movie");
+        }
+
+        movieAdapter = new MovieAdapter(getActivity(), movies);
 
         View rootView =  inflater.inflate(R.layout.fragment_main, container, false);
 
@@ -100,6 +105,13 @@ public class MainActivityFragment extends Fragment {
         });
 
         return rootView;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        movies = movieAdapter.getMovieInfos();
+        outState.putParcelableArrayList("movie", movies);
     }
 
     public class FetchMovieInfoTask extends AsyncTask<MovieInfo, Void, ArrayList<MovieInfo>> {

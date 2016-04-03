@@ -17,6 +17,11 @@ import java.util.ArrayList;
 public class MovieAdapter extends ArrayAdapter{
 
     private Context context;
+
+    public ArrayList<MovieInfo> getMovieInfos() {
+        return movieInfos;
+    }
+
     private ArrayList<MovieInfo> movieInfos;
 
     public MovieAdapter(Context context, ArrayList<MovieInfo> movieInfos) {
