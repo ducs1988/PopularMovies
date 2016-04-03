@@ -1,11 +1,12 @@
 package com.example.cs.popularmovies;
 
-import java.io.Serializable;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 /**
  * Created by csdu8 on 3/3/2016.
  */
-public class MovieInfo implements Serializable {
+public class MovieInfo implements Parcelable {
 
     public MovieInfo() {}
 
@@ -64,4 +65,38 @@ public class MovieInfo implements Serializable {
     private String vote_average;
     private String release_date;
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(id);
+        dest.writeString(poster_path);
+        dest.writeString(original_title);
+        dest.writeString(overview);
+        dest.writeString(vote_average);
+        dest.writeString(release_date);
+    }
+
+    public static final Parcelable.Creator<MovieInfo> CREATOR
+            = new Parcelable.Creator<MovieInfo>() {
+        public MovieInfo createFromParcel(Parcel in) {
+            return new MovieInfo(in);
+        }
+
+        public MovieInfo[] newArray(int size) {
+            return new MovieInfo[size];
+        }
+    };
+
+    private MovieInfo(Parcel in) {
+        id = in.readString();
+        poster_path = in.readString();
+        original_title = in.readString();
+        overview = in.readString();
+        vote_average = in.readString();
+        release_date = in.readString();
+    }
 }

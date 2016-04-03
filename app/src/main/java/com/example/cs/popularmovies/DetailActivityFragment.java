@@ -29,7 +29,7 @@ public class DetailActivityFragment extends Fragment {
         Intent intent = getActivity().getIntent();
         if (intent != null && intent.hasExtra("MovieDetail")) {
 
-            MovieInfo movieDetail = (MovieInfo) intent.getSerializableExtra("MovieDetail");
+            MovieInfo movieDetail = (MovieInfo) intent.getExtras().getParcelable("MovieDetail");
 
             ((TextView) rootView.findViewById(R.id.org_title))
                     .setText(movieDetail.getOriginal_title());
