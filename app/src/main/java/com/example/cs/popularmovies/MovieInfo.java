@@ -58,12 +58,21 @@ public class MovieInfo implements Parcelable {
         this.id = id;
     }
 
+    public String getRuntime() {
+        return runtime;
+    }
+
+    public void setRuntime(String runtime) {
+        this.runtime = runtime;
+    }
+
     private String id;
     private String poster_path;
     private String original_title;
     private String overview;
     private String vote_average;
     private String release_date;
+    private String runtime;
 
     @Override
     public int describeContents() {
@@ -78,6 +87,7 @@ public class MovieInfo implements Parcelable {
         dest.writeString(overview);
         dest.writeString(vote_average);
         dest.writeString(release_date);
+        dest.writeString(runtime);
     }
 
     public static final Parcelable.Creator<MovieInfo> CREATOR
@@ -98,5 +108,6 @@ public class MovieInfo implements Parcelable {
         overview = in.readString();
         vote_average = in.readString();
         release_date = in.readString();
+        runtime = in.readString();
     }
 }

@@ -1,9 +1,76 @@
-<ScrollView
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:layout_height="match_parent">
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        tools:context="com.example.cs.popularmovies.DetailActivityFragment"
+        tools:showIn="@layout/activity_detail">
+
+        <TextView
+            android:id="@+id/org_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="Large Text"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/poster"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/releaseDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/runtime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/vote_average"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/overview"/>
+
+
+    </LinearLayout>
+
+
+    <!--<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -11,68 +78,55 @@
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin"
-        tools:context="com.example.cs.popularmovies.DetailActivityFragment"
-        tools:showIn="@layout/activity_detail"
-        tools:ignore="MergeRootFrame">
-
-        <!--<ListView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/movie_details" />-->
-
-        <!--<TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:minHeight="?android:attr/listPreferredItemHeight"
-            android:gravity="center"
-            android:id="@+id/movie_id"/>-->
+        tools:ignore="MergeRootFrame"
+        tools:showIn="@layout/activity_detail">
 
         <TextView
+            android:id="@+id/org_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Large Text"
-            android:id="@+id/org_title"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
+            android:text="Large Text"
+            android:textAppearance="?android:attr/textAppearanceLarge"
             android:textStyle="bold" />
 
         <ImageView
+            android:id="@+id/poster"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/poster"
-            android:layout_below="@+id/org_title"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
+            android:layout_below="@+id/org_title"
             android:layout_marginTop="30dp"
             android:contentDescription="@string/poster"
-            android:maxWidth="150dp"
-            android:maxHeight="300dp" />
+            android:maxHeight="300dp"
+            android:maxWidth="150dp" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Small Text"
             android:id="@+id/releaseDate"
-            android:layout_marginRight="60dp"
-            android:layout_marginEnd="60dp"
-            android:layout_alignTop="@+id/poster"
-            android:layout_alignRight="@+id/org_title"
-            android:layout_alignEnd="@+id/org_title" />
-
-        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:layout_alignEnd="@+id/org_title"
+            android:layout_alignRight="@+id/org_title"
+            android:layout_alignTop="@+id/poster"
+            android:layout_marginEnd="60dp"
+            android:layout_marginRight="60dp"
             android:text="Small Text"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <TextView
             android:id="@+id/vote_average"
-            android:layout_below="@+id/releaseDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/releaseDate"
             android:layout_alignStart="@+id/releaseDate"
-            android:layout_marginTop="30dp" />
+            android:layout_below="@+id/releaseDate"
+            android:layout_marginTop="30dp"
+            android:text="Small Text"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
 
-        <!--<TextView
+        &lt;!&ndash;<TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
@@ -80,20 +134,20 @@
             android:id="@+id/runtime"
             android:layout_below="@+id/vote_average"
             android:layout_alignRight="@+id/overview"
-            android:layout_marginRight="41dp" />-->
+            android:layout_marginRight="41dp" />&ndash;&gt;
 
         <TextView
+            android:id="@+id/overview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Medium Text"
-            android:id="@+id/overview"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
 
             android:layout_alignWithParentIfMissing="true"
             android:layout_below="@+id/vote_average"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="250dp" />
-    </RelativeLayout>
+            android:layout_marginTop="250dp"
+            android:text="Medium Text"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+    </RelativeLayout>-->
 
 </ScrollView>

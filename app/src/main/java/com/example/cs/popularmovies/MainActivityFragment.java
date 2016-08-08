@@ -155,6 +155,7 @@ public class MainActivityFragment extends Fragment {
             final String OWM_OVERVIEW = "overview";
             final String OWM_VOTE_AVERAGE = "vote_average";
             final String OWM_RELEASE_DATE = "release_date";
+            final String OWM_RUNTIME = "runtime";
 
             JSONObject moviesJson = new JSONObject(movieInfoJsonStr);
             JSONArray moviesArray = moviesJson.getJSONArray(OWM_RESULTS);

@@ -40,6 +40,8 @@ public class DetailActivityFragment extends Fragment {
             // picasso
             Picasso.with(getActivity())
                     .load(url)
+                    .fit()
+                    .centerInside()
                     .placeholder(R.drawable.poster_placeholder)
                     .error(R.drawable.poster_placeholder)
                     .into(imageView);
@@ -51,10 +53,8 @@ public class DetailActivityFragment extends Fragment {
             ((TextView) rootView.findViewById(R.id.vote_average))
                     .setText("Rate: " + movieDetail.getVote_average());
 
-/*
-            ((TextView) rootView.findViewById(R.id.runtime))
-                    .setText(movieDetail.);
-*/
+            /*((TextView) rootView.findViewById(R.id.runtime))
+                    .setText(movieDetail.getRuntime() + "min");*/
 
             ((TextView) rootView.findViewById(R.id.overview))
                     .setText("Overview: \n" + movieDetail.getOverview());
