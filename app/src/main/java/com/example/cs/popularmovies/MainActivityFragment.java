@@ -35,6 +35,7 @@ public class MainActivityFragment extends Fragment {
 
     protected MovieAdapter movieAdapter;
     private ArrayList<MovieInfo> movies;
+    private String sortByBefore;
 
     public MainActivityFragment() {
     }
@@ -63,6 +64,22 @@ public class MainActivityFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        SharedPreferences sharedPrefs =
+                PreferenceManager.getDefaultSharedPreferences(getActivity());
+        String sortByAfter = sharedPrefs.getString(
+                getString(R.string.pref_sort_key),
+                getString(R.string.pref_most_pop));
+
+        if (sortByBefore != sortByAfter) {
+            updateMovieInfo();
+            movies = new ArrayList<MovieInfo>();
+        }
     }
 
     private void updateMovieInfo() {
@@ -112,6 +129,12 @@ public class MainActivityFragment extends Fragment {
         super.onSaveInstanceState(outState);
         movies = movieAdapter.getMovieInfos();
         outState.putParcelableArrayList("movie", movies);
+
+        SharedPreferences sharedPrefs =
+                PreferenceManager.getDefaultSharedPreferences(getActivity());
+        sortByBefore = sharedPrefs.getString(
+                getString(R.string.pref_sort_key),
+                getString(R.string.pref_most_pop));
     }
 
     public class FetchMovieInfoTask extends AsyncTask<MovieInfo, Void, ArrayList<MovieInfo>> {
