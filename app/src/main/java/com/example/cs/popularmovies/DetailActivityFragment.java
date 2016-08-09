@@ -36,7 +36,7 @@ public class DetailActivityFragment extends Fragment {
 
             ImageView imageView = (ImageView) rootView.findViewById(R.id.poster);
             String url = "http://image.tmdb.org/t/p/w500/" +
-                    movieDetail.getPoster_path();
+                    movieDetail.getPosterPath();
             // picasso
             Picasso.with(getActivity())
                     .load(url)

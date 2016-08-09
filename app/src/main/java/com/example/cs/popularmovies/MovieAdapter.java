@@ -72,7 +72,7 @@ public class MovieAdapter extends ArrayAdapter{
         ImageView imageView = (ImageView) convertView
                 .findViewById(R.id.grid_imageview);
         String url = "http://image.tmdb.org/t/p/w500/" +
-                movieInfos.get(position).getPoster_path();
+                movieInfos.get(position).getPosterPath();
         // picasso
         Picasso.with(context)
                 .load(url)
