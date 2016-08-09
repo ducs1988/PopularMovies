@@ -216,6 +216,8 @@ public class MainActivityFragment extends Fragment {
 
             String moviesJsonStr = null;
 
+            ArrayList<MovieInfo> moviesList;
+
             try {
 
                 SharedPreferences sharedPrefs =
@@ -270,11 +272,15 @@ public class MainActivityFragment extends Fragment {
             }
 
             try {
-                return getPopularMovieInfoFromJson(moviesJsonStr);
+                moviesList = getPopularMovieInfoFromJson(moviesJsonStr);
             } catch (JSONException e) {
                 Log.e(LOG_TAG, e.getMessage(), e);
                 e.printStackTrace();
             }
+
+            // TODO: for each item in the movies list, get more information via URL call
+            // trailers and reviews...
+            // note return type is ArrayList
 
             return null;
         }
