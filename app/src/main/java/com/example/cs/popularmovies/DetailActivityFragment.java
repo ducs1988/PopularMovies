@@ -6,21 +6,15 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
-
-import java.util.ArrayList;
 
 /**
  * A placeholder fragment containing a simple view.
  */
 public class DetailActivityFragment extends Fragment {
-
-    protected VideoAdapter videoAdapter;
 
     public DetailActivityFragment() {
     }
@@ -29,7 +23,6 @@ public class DetailActivityFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        videoAdapter = new VideoAdapter(getActivity(), new ArrayList<String>());
 
         View rootView =  inflater.inflate(R.layout.fragment_detail, container, false);
 
@@ -66,13 +59,6 @@ public class DetailActivityFragment extends Fragment {
             ((TextView) rootView.findViewById(R.id.overview))
                     .setText("Overview: \n" + movieDetail.getOverview());
         }
-
-        GridView gridView = (GridView) rootView.findViewById(R.id.videos);
-        gridView.setAdapter(videoAdapter);
-        // TODO: onClickListener
-
-        ListView listView = (ListView) rootView.findViewById(R.id.reviews);
-        // listView.setAdapter(reviewAdapter);
 
         return rootView;
     }

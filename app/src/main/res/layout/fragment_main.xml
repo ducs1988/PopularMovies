@@ -10,12 +10,12 @@
     tools:showIn="@layout/activity_main">
 
     <GridView
-        android:id="@+id/popular_movies"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:columnWidth="150dp"
+        android:id="@+id/popular_movies"
         android:gravity="center"
-        android:numColumns="auto_fit"
-        android:stretchMode="columnWidth" />
+        android:stretchMode="columnWidth"
+        android:columnWidth="150dp"
+        android:numColumns="auto_fit" />
 
 </FrameLayout>
