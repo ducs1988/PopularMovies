@@ -272,13 +272,14 @@ public class MainActivityFragment extends Fragment {
             }
 
             try {
-                moviesList = getPopularMovieInfoFromJson(moviesJsonStr);
+                //moviesList = getPopularMovieInfoFromJson(moviesJsonStr);
+                return getPopularMovieInfoFromJson(moviesJsonStr);
             } catch (JSONException e) {
                 Log.e(LOG_TAG, e.getMessage(), e);
                 e.printStackTrace();
             }
 
-            // TODO: for each item in the movies list, get more information via URL call
+            // for each item in the movies list, get more information via URL call
             // trailers and reviews...
             // note return type is ArrayList
 
