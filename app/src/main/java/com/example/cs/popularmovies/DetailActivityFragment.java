@@ -21,6 +21,7 @@ import java.util.ArrayList;
 public class DetailActivityFragment extends Fragment {
 
     protected VideoAdapter videoAdapter;
+    protected ReviewAdapter reviewAdapter;
 
     public DetailActivityFragment() {
     }
@@ -30,6 +31,7 @@ public class DetailActivityFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         videoAdapter = new VideoAdapter(getActivity(), new ArrayList<String>());
+        reviewAdapter = new ReviewAdapter(getActivity(), new ArrayList<String>());
 
         View rootView =  inflater.inflate(R.layout.fragment_detail, container, false);
 
@@ -72,7 +74,7 @@ public class DetailActivityFragment extends Fragment {
         // TODO: onClickListener
 
         ListView listView = (ListView) rootView.findViewById(R.id.reviews);
-        // listView.setAdapter(reviewAdapter);
+        listView.setAdapter(reviewAdapter);
 
         return rootView;
     }
