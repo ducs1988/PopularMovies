@@ -151,18 +151,10 @@ public class MainActivityFragment extends Fragment {
             final String OWM_RESULTS = "results";
 
             final String OWM_POSTERPATH = "poster_path";
-            //final String OWM_ADULT = "adult";
             final String OWM_OVERVIEW = "overview";
             final String OWM_RELEASE_DATE = "release_date";
-
             final String OWM_ID = "id";
             final String OWM_ORGTITLE = "original_title";
-            //final String OWM_ORGLANGUAGE = "original_language";
-            //final String OWM_TITLE = "title";
-            //final String OWM_BACKDROP_PATH = "backdrop_path";
-            //final String OWM_POPULARITY = "popularity";
-            //final String OWM_VOTE_COUNT = "vote_count";
-            //final String OWM_VIDEO = "video";
             final String OWM_VOTE_AVERAGE = "vote_average";
 
             JSONObject moviesJson = new JSONObject(movieInfoJsonStr);
@@ -173,36 +165,20 @@ public class MainActivityFragment extends Fragment {
 
             // Go through the JSON object array
             for (int i = 0; i < moviesArray.length(); i++) {
-                // get poster path, original title,
 
                 JSONObject movieObj = moviesArray.getJSONObject(i);
 
                 MovieInfo mi = new MovieInfo();
 
                 mi.setPosterPath(movieObj.getString(OWM_POSTERPATH));
-//                mi.setAdult(movieObj.getString(OWM_ADULT));
                 mi.setOverview(movieObj.getString(OWM_OVERVIEW));
                 mi.setRelease_date(movieObj.getString(OWM_RELEASE_DATE));
-
                 mi.setId(movieObj.getString(OWM_ID));
                 mi.setOriginal_title(movieObj.getString(OWM_ORGTITLE));
-//                mi.setOriginal_language(movieObj.getString(OWM_ORGLANGUAGE));
-//                mi.setTitle(movieObj.getString(OWM_TITLE));
-//                mi.setBackdropPath(movieObj.getString(OWM_BACKDROP_PATH));
-//                mi.setPopularity(movieObj.getString(OWM_POPULARITY));
-//                mi.setVoteCount(movieObj.getString(OWM_VOTE_COUNT));
-//                mi.setVideo(movieObj.getString(OWM_VIDEO));
                 mi.setVote_average(movieObj.getString(OWM_VOTE_AVERAGE));
-
 
                 resultsInfo.add(mi);
             }
-
-            /*for (MovieInfo mi : resultsInfo) {
-                Log.v(LOG_TAG, "Movie info: "
-                        + mi.getOriginal_title() + " - "
-                        + mi.getPoster_path());
-            }*/
 
             return resultsInfo;
         }
