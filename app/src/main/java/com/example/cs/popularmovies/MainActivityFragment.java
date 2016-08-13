@@ -180,18 +180,18 @@ public class MainActivityFragment extends Fragment {
                 MovieInfo mi = new MovieInfo();
 
                 mi.setPosterPath(movieObj.getString(OWM_POSTERPATH));
-                //mi.setAdult(movieObj.getString(OWM_ADULT));
+                mi.setAdult(movieObj.getString(OWM_ADULT));
                 mi.setOverview(movieObj.getString(OWM_OVERVIEW));
                 mi.setRelease_date(movieObj.getString(OWM_RELEASE_DATE));
 
                 mi.setId(movieObj.getString(OWM_ID));
                 mi.setOriginal_title(movieObj.getString(OWM_ORGTITLE));
-                //mi.setOriginal_language(movieObj.getString(OWM_ORGLANGUAGE));
-                //mi.setTitle(movieObj.getString(OWM_TITLE));
-                //mi.setBackdropPath(movieObj.getString(OWM_BACKDROP_PATH));
-                //mi.setPopularity(movieObj.getString(OWM_POPULARITY));
-                //mi.setVoteCount(movieObj.getString(OWM_VOTE_COUNT));
-                //mi.setVideo(movieObj.getString(OWM_VIDEO));
+                mi.setOriginal_language(movieObj.getString(OWM_ORGLANGUAGE));
+                mi.setTitle(movieObj.getString(OWM_TITLE));
+                mi.setBackdropPath(movieObj.getString(OWM_BACKDROP_PATH));
+                mi.setPopularity(movieObj.getString(OWM_POPULARITY));
+                mi.setVoteCount(movieObj.getString(OWM_VOTE_COUNT));
+                mi.setVideo(movieObj.getString(OWM_VIDEO));
                 mi.setVote_average(movieObj.getString(OWM_VOTE_AVERAGE));
 
 

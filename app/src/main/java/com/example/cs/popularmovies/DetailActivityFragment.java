@@ -6,11 +6,14 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -20,8 +23,6 @@ public class DetailActivityFragment extends Fragment {
     protected VideoAdapter videoAdapter;
     protected ReviewAdapter reviewAdapter;
 
-    protected ArrayAdapter<String> mVideoAdapter;
-
     public DetailActivityFragment() {
     }
 
@@ -29,16 +30,8 @@ public class DetailActivityFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        //videoAdapter = new VideoAdapter(getActivity(), new ArrayList<String>());
-        //reviewAdapter = new ReviewAdapter(getActivity(), new ArrayList<String>());
-
-//        String[] videoArray = {"CmRih_VtVAs",
-//                "5AwUdTIbA8I"};
-//
-//        mVideoAdapter = new ArrayAdapter<String>(getActivity(),
-//                R.layout.grid_item_video,
-//                R.id.video_play,
-//                videoArray);
+        videoAdapter = new VideoAdapter(getActivity(), new ArrayList<String>());
+        reviewAdapter = new ReviewAdapter(getActivity(), new ArrayList<String>());
 
         View rootView =  inflater.inflate(R.layout.fragment_detail, container, false);
 
@@ -76,12 +69,12 @@ public class DetailActivityFragment extends Fragment {
                     .setText("Overview: \n" + movieDetail.getOverview());
         }
 
-//        GridView gridView = (GridView) rootView.findViewById(R.id.videos);
-//        gridView.setAdapter(mVideoAdapter);
+        GridView gridView = (GridView) rootView.findViewById(R.id.videos);
+        gridView.setAdapter(videoAdapter);
         // TODO: onClickListener
 
-        //ListView listView = (ListView) rootView.findViewById(R.id.reviews);
-        //listView.setAdapter(reviewAdapter);
+        ListView listView = (ListView) rootView.findViewById(R.id.reviews);
+        listView.setAdapter(reviewAdapter);
 
         return rootView;
     }
