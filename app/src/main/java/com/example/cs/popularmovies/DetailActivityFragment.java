@@ -6,7 +6,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -16,6 +18,9 @@ import com.squareup.picasso.Picasso;
  */
 public class DetailActivityFragment extends Fragment {
 
+    protected ArrayAdapter<String> mTrailerAdapter;
+    protected ArrayAdapter<String> mReviewAdapter;
+
     public DetailActivityFragment() {
     }
 
@@ -23,8 +28,36 @@ public class DetailActivityFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-
         View rootView =  inflater.inflate(R.layout.fragment_detail, container, false);
+
+        // Setup trailer adapter
+        String[] trailerArray = {
+                "CmRih_VtVAs",
+                "5AwUdTIbA8I"
+        };
+
+        mTrailerAdapter = new ArrayAdapter<String>(getActivity(),
+                R.layout.list_item_trailer,
+                R.id.text_trailer_key,
+                trailerArray);
+
+        // Setup review adapter
+        String[] reviewArray = {
+                "Review_1 test",
+                "Review_2 test"
+        };
+
+        mReviewAdapter = new ArrayAdapter<String>(getActivity(),
+                R.layout.list_item_review,
+                R.id.text_review,
+                reviewArray);
+
+        ListView listViewTrailer = (ListView) rootView.findViewById(R.id.trailer_list);
+        listViewTrailer.setAdapter(mTrailerAdapter);
+
+        ListView listViewReview = (ListView) rootView.findViewById(R.id.review_list);
+        listViewReview.setAdapter(mReviewAdapter);
+
 
         Intent intent = getActivity().getIntent();
         if (intent != null && intent.hasExtra("MovieDetail")) {
