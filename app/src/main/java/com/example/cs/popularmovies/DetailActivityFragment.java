@@ -1,11 +1,14 @@
 package com.example.cs.popularmovies;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -54,6 +57,24 @@ public class DetailActivityFragment extends Fragment {
 
         ListView listViewTrailer = (ListView) rootView.findViewById(R.id.trailer_list);
         listViewTrailer.setAdapter(mTrailerAdapter);
+
+        // trailer click listener
+        listViewTrailer.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String trailerKey = mTrailerAdapter.getItem(position);
+
+                try {
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:" +
+                        trailerKey));
+                    startActivity(intent);
+                } catch (ActivityNotFoundException ex) {
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(
+                            "http://www.youtube.com/watch?v=" + trailerKey));
+                    startActivity(intent);
+                }
+            }
+        });
 
         ListView listViewReview = (ListView) rootView.findViewById(R.id.review_list);
         listViewReview.setAdapter(mReviewAdapter);
