@@ -43,6 +43,20 @@ public class DetailActivityFragment extends Fragment {
     }
 
     @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        // TODO: to save instance state you need to have your own datatype as MovieInfo
+        // TODO: extend the ArrayAdapter to set own screen
+        // trailer
+//        int nCount = mTrailerAdapter.getCount();
+//        ArrayList<String> trailerList = new ArrayList<String>();
+//        for (int i = 0 ; i< nCount; i++) {
+//            trailerList.add(mTrailerAdapter.getItem(i));
+//        }
+//        outState.putParcelableArrayList("trailer", trailerList);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
@@ -100,6 +114,12 @@ public class DetailActivityFragment extends Fragment {
 
         // end review
 
+        processIntentFetch(rootView);
+
+        return rootView;
+    }
+
+    private void processIntentFetch(View rootView) {
         Intent intent = getActivity().getIntent();
         if (intent != null && intent.hasExtra("MovieDetail")) {
 
@@ -127,9 +147,6 @@ public class DetailActivityFragment extends Fragment {
             ((TextView) rootView.findViewById(R.id.vote_average))
                     .setText("Rate: " + movieDetail.getVote_average());
 
-            /*((TextView) rootView.findViewById(R.id.runtime))
-                    .setText(movieDetail.getRuntime() + "min");*/
-
             ((TextView) rootView.findViewById(R.id.overview))
                     .setText("Overview: \n" + movieDetail.getOverview());
 
@@ -139,8 +156,6 @@ public class DetailActivityFragment extends Fragment {
             FetchTrailerReview f2 = new FetchTrailerReview();
             f2.execute(movieDetail.getId(), "reviews");
         }
-
-        return rootView;
     }
 
     public class FetchTrailerReview extends AsyncTask<String, Void, ArrayList<String>> {
